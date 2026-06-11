@@ -414,5 +414,7 @@ a:hover { color: var(--paper); }
 }
 .crisis strong { color: var(--amber); font-size: 1.1em; }
 
+.share-btn { max-width: 26rem; margin-top: 2.4rem; }
+
 .mirror-foot { border-top: 1px solid var(--line); padding-top: 1.6rem; }
 .madeby { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }

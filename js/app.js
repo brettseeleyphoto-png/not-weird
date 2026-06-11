@@ -129,7 +129,11 @@
         "<p>" + L.otherDoor.text + "</p>" +
         '<button class="btn" data-act="other-side">' + L.otherDoor.button + "</button>" +
       "</aside>" +
-      '<footer class="foot"><button class="link" data-act="story">' + L.storyLink + "</button></footer>";
+      '<footer class="foot">' +
+        '<button class="link" data-act="story">' + L.storyLink + "</button>" +
+        '<span class="crumb-sep">·</span>' +
+        '<button class="link" data-act="share">' + C.share.button + "</button>" +
+      "</footer>";
     setScreen(html, "landing");
   }
 
@@ -259,6 +263,7 @@
           "</ul></section>"
         ).join("") +
         '<p class="crisis">' + S.crisis + "</p>" +
+        '<button class="btn primary share-btn" data-act="share">' + C.share.button + "</button>" +
         crossDoor +
         '<footer class="foot mirror-foot">' +
           '<p class="madeby">' + S.madeBy + "</p>" +
@@ -315,10 +320,41 @@
       advance();
     } else if (act === "back") {
       goBack();
+    } else if (act === "share") {
+      share(btn);
     } else if (act === "restart") {
       if (window.confirm(C.mirror.restartConfirm)) reset();
     }
   });
+
+  /* ---------- share: native sheet on mobile, copy-link fallback ---------- */
+
+  async function share(btn) {
+    const url = location.origin + location.pathname;
+    if (navigator.share) {
+      try { await navigator.share({ title: C.share.title, text: C.share.text, url }); } catch (e) { /* user closed sheet */ }
+      return;
+    }
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch (e) { /* try legacy path */ }
+    if (!copied) {
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { copied = document.execCommand("copy"); } catch (e) { /* fall through */ }
+      ta.remove();
+    }
+    if (copied) {
+      const original = btn.textContent;
+      btn.textContent = C.share.copied;
+      setTimeout(() => { btn.textContent = original; }, 2200);
+    } else {
+      window.prompt("Copy the link:", url);
+    }
+  }
 
   function advance() {
     const mode = state.mode;

@@ -11,6 +11,13 @@ const CONTENT = {
     continueLabel: "Keep going",
   },
 
+  share: {
+    button: "Send this to someone",
+    copied: "Link copied — paste it anywhere.",
+    title: "not weird.",
+    text: `You've spent your whole life wondering what's wrong with you. Maybe nothing. Twenty-eight moments — not a diagnosis, a mirror.`,
+  },
+
   landing: {
     title: `<span class="nd">n</span>ot weir<span class="nd">d</span>.`,
     lede: [
@@ -32,7 +39,7 @@ const CONTENT = {
         "A quiz with a score. Nobody can tell you what you are from a website — including this one.",
       ],
     },
-    privacy: `Nothing you tap leaves this device. No account, no server, no analytics watching you. Your answers live in your browser and nowhere else — and the Start Over button erases even that.`,
+    privacy: `Your answers never leave this device. No account, no cookies, nothing watching what you tap. The only thing this site counts is an anonymous "someone visited" — no identity attached, ever. Your answers live in your browser and nowhere else, and the Start Over button erases even that.`,
     timeNote: "About ten minutes. Twenty-eight moments. No score at the end — that's the point.",
     begin: "Walk through it",
     otherDoor: {
